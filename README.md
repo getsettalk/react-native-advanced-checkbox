@@ -1,5 +1,8 @@
 # react-native-advanced-checkbox
 
+![ChatGPT Image Apr 10, 2025, 05_43_57 PM](https://github.com/user-attachments/assets/67078496-e975-45b1-8682-45c1d8a2b0c4)
+
+
 A versatile, customizable checkbox component for React Native with TypeScript support, animations, haptic feedback, and group functionality.
 
 [![npm version](https://badge.fury.io/js/react-native-advanced-checkbox.svg)](https://badge.fury.io/js/react-native-advanced-checkbox)
