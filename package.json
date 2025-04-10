@@ -8,16 +8,44 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-native": "^0.72.0"
+    "react": "^19.0.0",
+    "react-native": "^0.74.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "author": "Sujeet Kumar <rajrock7254@gmail.com> (https://github.com/getsettalk)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getsettalk/react-native-advanced-checkboxt"
+  },
+  "homepage": "https://github.com/getsettalk/react-native-advanced-checkbox",
+  "readme": "https://github.com/getsettalk/react-native-advanced-checkbox#readme",
+  "bugs": {
+    "url": "https://github.com/getsettalk/react-native-advanced-checkbox/issues"
+  },
+  "dependencies": {
+    "react-native-haptic-feedback": "^2.3.3"
   },
   "devDependencies": {
-    "@types/react": "^18.2.79",
-    "@types/react-native": "^0.72.8",
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.74.0",
     "typescript": "^5.4.5"
   },
   "files": [
     "dist/**/*"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "checkbox",
+    "advanced-checkbox",
+    "animation",
+    "haptic",
+    "accessibility",
+    "react-native-advanced-checkbox",
+    "react-native-checkbox",
+    "group-checkbox"
+  ],
+  "description": "A customizable, animated checkbox component for React Native with group support, haptic feedback, and accessibility features."
 }

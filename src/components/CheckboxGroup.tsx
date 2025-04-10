@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, ViewProps } from 'react-native';
-import { CheckboxGroupProps } from '../types';
+import { CheckboxGroupProps, CheckboxProps } from '../types';
 
 // Type assertion for View
 declare module 'react-native' {
@@ -32,8 +32,8 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   return (
     <View style={[styles.container, style]}>
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child as React.ReactElement, {
+        if (React.isValidElement<CheckboxProps>(child)) {
+          return React.cloneElement<CheckboxProps>(child, {
             onValueChange: handleValueChange,
             value: selectedValues.includes(String(child.props.value)),
           });
