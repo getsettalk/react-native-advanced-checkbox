@@ -20,13 +20,6 @@ npm install react-native-advanced-checkbox
 yarn add react-native-advanced-checkbox
 ```
 
-### Optional Dependency
-For haptic feedback support, install `react-native-haptic-feedback`:
-```bash
-npm install react-native-haptic-feedback
-# or
-yarn add react-native-haptic-feedback
-```
 
 ## Features
 - **TypeScript Support**: Fully typed with TypeScript for a seamless development experience.
