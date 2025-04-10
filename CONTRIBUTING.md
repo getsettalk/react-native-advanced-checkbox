@@ -44,7 +44,7 @@ Thank you for your interest in contributing to `react-native-advanced-checkbox`!
   npm link react-native-advanced-checkbox
   npx react-native run-android # or run-ios
   ```
-- Verify that your changes work across RN 0.72.0 and the latest version (e.g., 0.74.x).
+- Verify that your changes work across RN 0.72.0 and the latest version (e.g., 0.79.x).
 
 ### 5. Submit a Pull Request
 - Commit your changes:

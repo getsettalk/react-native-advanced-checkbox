@@ -16,14 +16,6 @@ import {
 } from 'react-native';
 import { CheckboxProps } from '../types';
 
-// Optional haptic feedback
-let ReactNativeHapticFeedback: any;
-try {
-  ReactNativeHapticFeedback = require('react-native-haptic-feedback').default;
-} catch (e) {
-  console.warn('react-native-haptic-feedback is not installed. Install it for haptic support.');
-}
-
 // Type assertions
 declare module 'react-native' {
   interface ImageComponent extends React.ComponentClass<ImageProps> {}
@@ -51,7 +43,6 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   disabled = false,
   animationType = 'bounce',
   checkMarkContent,
-  enableHapticFeedback = false,
   testID,
   accessibilityLabel,
   accessibilityHint,
@@ -107,12 +98,9 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
 
   const handlePress = useCallback(() => {
     if (!disabled && onValueChange) {
-      if (enableHapticFeedback && ReactNativeHapticFeedback) {
-        ReactNativeHapticFeedback.trigger('impactLight');
-      }
       onValueChange(typeof value === 'string' ? value : !isChecked);
     }
-  }, [disabled, isChecked, onValueChange, value, enableHapticFeedback]);
+  }, [disabled, isChecked, onValueChange, value]);
 
   const renderCheckbox = () => {
     if (checkedImage && isChecked) {

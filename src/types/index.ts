@@ -32,8 +32,6 @@ export interface CheckboxProps {
   animationType?: 'bounce' | 'fade' | 'rotate';
   /** Custom content for checkmark */
   checkMarkContent?: React.ReactNode;
-  /** Enable haptic feedback on press */
-  enableHapticFeedback?: boolean;
   /** Test ID for testing frameworks */
   testID?: string;
   /** Accessibility label */

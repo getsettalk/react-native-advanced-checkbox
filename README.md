@@ -116,7 +116,6 @@ const App = () => {
       animationType="rotate"
       checkBoxStyle={{ borderRadius: 8 }}
       labelStyle={{ fontSize: 18, color: '#333' }}
-      enableHapticFeedback={true}
       testID="custom-checkbox"
       accessibilityLabel="Toggle custom option"
       accessibilityHint="Toggles the custom checkbox on or off"
@@ -147,7 +146,6 @@ export default App;
 | `disabled`           | `boolean`                | `false`       | Whether checkbox is disabled                    |
 | `animationType`      | `'bounce' \| 'fade' \| 'rotate'` | `'bounce'` | Animation type for checkmark transition |
 | `checkMarkContent`   | `React.ReactNode`        | `✓`           | Custom content for checkmark                    |
-| `enableHapticFeedback` | `boolean`             | `false`       | Enable haptic feedback on press                 |
 | `testID`             | `string`                 | -             | Test ID for testing frameworks                  |
 | `accessibilityLabel` | `string`                 | -             | Accessibility label for screen readers          |
 | `accessibilityHint`  | `string`                 | -             | Accessibility hint for screen readers           |
