@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "commonjs",
+      "jsx": "react-native",
+      "strict": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "outDir": "dist",
+      "declaration": true,
+      "sourceMap": true,
+      "lib": ["esnext"],
+      "noEmitOnError": true,
+      "moduleResolution": "node",
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "paths": {
+        "react": ["./node_modules/@types/react"]
+      }
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+  }

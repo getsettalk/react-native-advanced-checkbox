@@ -1,0 +1,23 @@
+{
+  "name": "react-native-advanced-checkbox",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.72.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.79",
+    "@types/react-native": "^0.72.8",
+    "typescript": "^5.4.5"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "license": "MIT"
+}
