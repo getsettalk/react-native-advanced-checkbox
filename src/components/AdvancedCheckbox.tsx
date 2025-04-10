@@ -15,7 +15,14 @@ import {
   AccessibilityProps,
 } from 'react-native';
 import { CheckboxProps } from '../types';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback'; // Optional
+
+// Optional haptic feedback
+let ReactNativeHapticFeedback: any;
+try {
+  ReactNativeHapticFeedback = require('react-native-haptic-feedback').default;
+} catch (e) {
+  console.warn('react-native-haptic-feedback is not installed. Install it for haptic support.');
+}
 
 // Type assertions
 declare module 'react-native' {
@@ -42,12 +49,12 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   checkBoxStyle,
   uncheckedColor = '#ccc',
   disabled = false,
-  animationType = 'bounce', // New: Animation variant
-  checkMarkContent, // New: Custom checkmark
-  enableHapticFeedback = false, // New: Haptic feedback
-  testID, // New: Test ID
-  accessibilityLabel, // New: Accessibility
-  accessibilityHint, // New: Accessibility
+  animationType = 'bounce',
+  checkMarkContent,
+  enableHapticFeedback = false,
+  testID,
+  accessibilityLabel,
+  accessibilityHint,
 }) => {
   const isChecked = typeof value === 'boolean' ? value : false;
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -100,7 +107,7 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
 
   const handlePress = useCallback(() => {
     if (!disabled && onValueChange) {
-      if (enableHapticFeedback) {
+      if (enableHapticFeedback && ReactNativeHapticFeedback) {
         ReactNativeHapticFeedback.trigger('impactLight');
       }
       onValueChange(typeof value === 'string' ? value : !isChecked);

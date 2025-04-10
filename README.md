@@ -4,6 +4,8 @@ A versatile, customizable checkbox component for React Native with TypeScript su
 
 [![npm version](https://badge.fury.io/js/react-native-advanced-checkbox.svg)](https://badge.fury.io/js/react-native-advanced-checkbox)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 
 ## Installation
 
@@ -37,7 +39,7 @@ yarn add react-native-haptic-feedback
 - **New Architecture**: Supports React Native's New Architecture (Fabric) with `useNativeDriver`.
 
 ## Compatibility
-- **React Native**: `>=0.72.0` (tested up to 0.74.x and beyond)
+- **React Native**: `>=0.72.0` (tested up to 0.79.x and beyond)
 - **React**: `>=18.2.0` (tested up to 19.x)
 
 ## Usage
