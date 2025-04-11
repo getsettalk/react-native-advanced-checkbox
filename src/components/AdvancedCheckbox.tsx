@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { CheckboxProps } from '../types';
 
-// Type assertions
+// Type assertions for Animated components
 declare module 'react-native' {
   interface ImageComponent extends React.ComponentClass<ImageProps> {}
   interface TextComponent extends React.ComponentClass<TextProps> {}
@@ -97,7 +97,9 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   }, [isChecked, scaleAnim, fadeAnim, rotateAnim, animationType]);
 
   const handlePress = useCallback(() => {
+    console.log('Checkbox clicked, value:', value, 'isChecked:', isChecked);
     if (!disabled && onValueChange) {
+      // In group context, value is a string; otherwise toggle boolean
       onValueChange(typeof value === 'string' ? value : !isChecked);
     }
   }, [disabled, isChecked, onValueChange, value]);

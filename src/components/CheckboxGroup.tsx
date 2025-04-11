@@ -1,36 +1,37 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle, Text } from 'react-native';
 import { CheckboxGroupProps, CheckboxProps } from '../types';
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   onValueChange,
-  initialValues = [], // Only used if no onValueChange is provided
+  initialValues = [], // Controlled by parent
   style,
   children,
 }) => {
-  const selectedValues = initialValues; // Fallback if uncontrolled
-
   const handleValueChange = useCallback(
     (value: string | boolean) => {
       if (typeof value !== 'string' || !onValueChange) return;
 
-      const currentValues = selectedValues; // Use parent's state via callback
-      const newValues = currentValues.includes(value)
-        ? currentValues.filter((v) => v !== value)
-        : [...currentValues, value];
+      console.log('Group handleValueChange, value:', value, 'currentValues:', initialValues);
+      const newValues = initialValues.includes(value)
+        ? initialValues.filter((v) => v !== value)
+        : [...initialValues, value];
       
-      onValueChange(newValues);
+      console.log('New values:', newValues);
+      onValueChange(newValues); // Pass the computed array directly
     },
-    [selectedValues, onValueChange]
+    [onValueChange, initialValues]
   );
 
   return (
     <View style={[styles.container, style]}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement<CheckboxProps>(child)) {
+          const childValue = String(child.props.value);
           return React.cloneElement<CheckboxProps>(child, {
+            value: childValue, // Pass the string value
             onValueChange: handleValueChange,
-            value: selectedValues.includes(String(child.props.value)),
+            checkMarkContent: initialValues.includes(childValue) ? <Text>✓</Text> : null, // Reflect checked state
           });
         }
         return child;
