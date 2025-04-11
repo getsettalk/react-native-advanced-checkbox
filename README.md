@@ -1,16 +1,30 @@
-# react-native-advanced-checkbox
 
-![ChatGPT Image Apr 10, 2025, 05_43_57 PM](https://github.com/user-attachments/assets/67078496-e975-45b1-8682-45c1d8a2b0c4)
+# 🎯 **react-native-advanced-checkbox**
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/67078496-e975-45b1-8682-45c1d8a2b0c4" alt="react-native-advanced-checkbox" width="500"/>
+</p>
 
-A versatile, customizable checkbox component for React Native with TypeScript support, animations, haptic feedback, and group functionality.
+<p align="center">
+  <strong>A versatile, customizable checkbox component for React Native</strong><br/>
+  Built with TypeScript · Animations · Group Management
+</p>
 
-[![npm version](https://badge.fury.io/js/react-native-advanced-checkbox.svg)](https://badge.fury.io/js/react-native-advanced-checkbox)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+<p align="center">
+  <a href="https://badge.fury.io/js/react-native-advanced-checkbox">
+    <img src="https://badge.fury.io/js/react-native-advanced-checkbox.svg" alt="npm version" />
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
+  </a>
+  <a href="code_of_conduct.md">
+    <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Contributor Covenant" />
+  </a>
+</p>
 
+---
 
-## Installation
+## 🚀 Installation
 
 Install the package via npm or Yarn:
 
@@ -20,28 +34,35 @@ npm install react-native-advanced-checkbox
 yarn add react-native-advanced-checkbox
 ```
 
+---
 
-## Features
-- **TypeScript Support**: Fully typed with TypeScript for a seamless development experience.
-- **Custom Images**: Use custom images for checked and unchecked states.
-- **Color Customization**: Set colors for checked and unchecked states.
-- **Label Support**: Add labels with customizable positioning (left or right).
-- **Checkbox Groups**: Manage multiple checkboxes with `CheckboxGroup`.
-- **Animations**: Choose from `bounce`, `fade`, or `rotate` animation types.
-- **Haptic Feedback**: Optional tactile feedback on interaction (requires `react-native-haptic-feedback`).
-- **Accessibility**: Built-in support for screen readers with `accessibilityLabel` and `accessibilityHint`.
-- **Testability**: Includes `testID` for integration with testing frameworks.
-- **Cross-Platform**: Fully compatible with iOS and Android.
-- **New Architecture**: Supports React Native's New Architecture (Fabric) with `useNativeDriver`.
+## ✨ Features
 
-## Compatibility
-- **React Native**: `>=0.72.0` (tested up to 0.79.x and beyond)
-- **React**: `>=18.2.0` (tested up to 19.x)
+- ✅ **TypeScript Support**
+- 🖼️ **Custom Images** for checked/unchecked states
+- 🎨 **Color Customization** (checked / unchecked)
+- 🏷️ **Labels** with left/right positioning
+- 🧠 **Checkbox Groups** with `CheckboxGroup`
+- 🎞️ **Animations**: `bounce`, `fade`, `rotate`
+- ♿ **Accessibility**: screen reader support
+- 🧪 **Testability**: `testID` support
+- 📱 **Cross-Platform** (iOS & Android)
+- ⚛️ **New Architecture Ready** with `useNativeDriver`
 
-## Usage
+---
 
-### Basic Example
-A simple checkbox with a label:
+## 📦 Compatibility
+
+| Package        | Version         |
+|----------------|-----------------|
+| **React Native** | `>= 0.72.0` (tested up to 0.79.x) |
+| **React**        | `>= 18.2.0` (tested up to 19.x)  |
+
+---
+
+## 🧑‍💻 Usage
+
+### ✅ Basic Example
 
 ```tsx
 import React, { useState } from 'react';
@@ -65,127 +86,131 @@ const App = () => {
 export default App;
 ```
 
-### Checkbox Group Example
-Manage multiple checkboxes with `CheckboxGroup`:
+---
+
+### 👥 Checkbox Group Example
 
 ```tsx
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import { CheckboxGroup, AdvancedCheckbox } from 'react-native-advanced-checkbox';
 
 const App = () => {
   const [selectedValues, setSelectedValues] = useState<string[]>(['option1']);
 
   return (
-    <CheckboxGroup
-      onValueChange={setSelectedValues}
-      initialValues={['option1']}
-    >
-      <AdvancedCheckbox value="option1" label="Option 1" checkedColor="#FF6347" />
-      <AdvancedCheckbox value="option2" label="Option 2" checkedColor="#FF6347" />
-      <AdvancedCheckbox value="option3" label="Option 3" checkedColor="#FF6347" />
-    </CheckboxGroup>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <CheckboxGroup onValueChange={setSelectedValues}>
+        <AdvancedCheckbox value="option1" label="Option 1" checkedColor="#FF6347" />
+        <AdvancedCheckbox value="option2" label="Option 2" checkedColor="#FF6347" />
+        <AdvancedCheckbox value="option3" label="Option 3" checkedColor="#FF6347" />
+      </CheckboxGroup>
+    </View>
   );
 };
 
 export default App;
 ```
 
-### Advanced Customization
-Customize animations, styles, and content:
+---
+
+### ⚙️ Advanced Customization
 
 ```tsx
-import React, { useState } from 'react';
-import { AdvancedCheckbox } from 'react-native-advanced-checkbox';
-
-const App = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <AdvancedCheckbox
-      value={checked}
-      onValueChange={setChecked}
-      label="Custom Checkbox"
-      labelPosition="left"
-      checkedColor="#28a745"
-      uncheckedColor="#6c757d"
-      size={30}
-      animationType="rotate"
-      checkBoxStyle={{ borderRadius: 8 }}
-      labelStyle={{ fontSize: 18, color: '#333' }}
-      testID="custom-checkbox"
-      accessibilityLabel="Toggle custom option"
-      accessibilityHint="Toggles the custom checkbox on or off"
-    />
-  );
-};
-
-export default App;
+<AdvancedCheckbox
+  value={checked}
+  onValueChange={setChecked}
+  label="Custom Checkbox"
+  labelPosition="left"
+  checkedColor="#28a745"
+  uncheckedColor="#6c757d"
+  size={30}
+  animationType="rotate"
+  checkBoxStyle={{ borderRadius: 8 }}
+  labelStyle={{ fontSize: 18, color: '#333' }}
+  testID="custom-checkbox"
+  accessibilityLabel="Toggle custom option"
+  accessibilityHint="Toggles the custom checkbox on or off"
+/>
 ```
 
-### Props
+---
 
-#### `AdvancedCheckbox` Props
-| Prop                  | Type                     | Default       | Description                                      |
-|-----------------------|--------------------------|---------------|--------------------------------------------------|
-| `value`              | `boolean \| string`      | `false`       | Current value of the checkbox                   |
-| `onValueChange`      | `(value: boolean \| string) => void` | - | Callback when value changes            |
-| `checkedImage`       | `ImageSourcePropType`    | -             | Image for checked state                        |
-| `uncheckedImage`     | `ImageSourcePropType`    | -             | Image for unchecked state                      |
-| `size`               | `number`                 | `24`          | Size of the checkbox                            |
-| `label`              | `string`                 | -             | Label text                                      |
-| `labelPosition`      | `'left' \| 'right'`     | `'right'`     | Position of label relative to checkbox          |
-| `labelStyle`         | `StyleProp<TextStyle>`   | -             | Custom style for label                          |
-| `containerStyle`     | `StyleProp<ViewStyle>`   | -             | Custom style for container                      |
-| `checkedColor`       | `string`                 | `'#007AFF'`   | Color when checked                              |
-| `checkBoxStyle`      | `StyleProp<ViewStyle>`   | -             | Custom style for checkbox container             |
-| `uncheckedColor`     | `string`                 | `'#ccc'`      | Color when unchecked                            |
-| `disabled`           | `boolean`                | `false`       | Whether checkbox is disabled                    |
-| `animationType`      | `'bounce' \| 'fade' \| 'rotate'` | `'bounce'` | Animation type for checkmark transition |
-| `checkMarkContent`   | `React.ReactNode`        | `✓`           | Custom content for checkmark                    |
-| `testID`             | `string`                 | -             | Test ID for testing frameworks                  |
-| `accessibilityLabel` | `string`                 | -             | Accessibility label for screen readers          |
-| `accessibilityHint`  | `string`                 | -             | Accessibility hint for screen readers           |
+## 📋 Props
 
-#### `CheckboxGroup` Props
-| Prop              | Type                     | Default | Description                                      |
-|-------------------|--------------------------|---------|--------------------------------------------------|
-| `onValueChange`  | `(values: string[]) => void` | -   | Callback when group values change               |
-| `initialValues`  | `string[]`               | `[]`    | Initial selected values                         |
-| `style`          | `StyleProp<ViewStyle>`   | -       | Custom style for group container                |
-| `children`       | `React.ReactNode`        | -       | Child `AdvancedCheckbox` components             |
+### `AdvancedCheckbox`
 
-## Customization
-- **Custom Images**: Provide `checkedImage` and `uncheckedImage` for unique visuals:
-  ```tsx
-  <AdvancedCheckbox
-    checkedImage={require('./checked.png')}
-    uncheckedImage={require('./unchecked.png')}
-  />
-  ```
-- **Color and Style**: Adjust colors and styles:
-  ```tsx
-  <AdvancedCheckbox
-    checkedColor="#FF6347"
-    uncheckedColor="#6c757d"
-    checkBoxStyle={{ borderRadius: 10, borderWidth: 2 }}
-  />
-  ```
-- **Custom Checkmark**: Replace the default `✓`:
-  ```tsx
-  <AdvancedCheckbox checkMarkContent={<Text style={{ color: '#fff' }}>✔</Text>} />
-  ```
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `boolean \| string` | `false` | Current value |
+| `onValueChange` | `(value: boolean \| string) => void` | - | Callback |
+| `checkedImage` / `uncheckedImage` | `ImageSourcePropType` | - | Custom images |
+| `size` | `number` | `24` | Size of checkbox |
+| `label` | `string` | - | Label text |
+| `labelPosition` | `'left' \| 'right'` | `'right'` | Label alignment |
+| `labelStyle`, `containerStyle`, `checkBoxStyle` | `StyleProp` | - | Styling |
+| `checkedColor` / `uncheckedColor` | `string` | `#007AFF` / `#ccc` | Colors |
+| `disabled` | `boolean` | `false` | Disable checkbox |
+| `animationType` | `'bounce' \| 'fade' \| 'rotate'` | `'bounce'` | Animation type |
+| `checkMarkContent` | `React.ReactNode` | `✓` | Custom checkmark |
+| `testID`, `accessibilityLabel`, `accessibilityHint` | `string` | - | Test & a11y support |
 
-## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project. We welcome pull requests!
+### `CheckboxGroup`
 
-## Code of Conduct
-Please review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to understand the expectations for participation in this project.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onValueChange` | `(values: string[]) => void` | - | Callback |
+| `initialValues` | `string[]` | `[]` | Initial selection |
+| `style` | `StyleProp<ViewStyle>` | - | Group style |
+| `children` | `React.ReactNode` | - | Checkbox items |
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
 
-## Author
-- Sujeet Kumar ([GitHub](https://github.com/getsettalk))
+## 🎨 Customization Tips
 
-## Support
-For issues or feature requests, please file an issue on the [GitHub repository](https://github.com/getsettalk/react-native-advanced-checkbox).
+```tsx
+// Custom images
+<AdvancedCheckbox
+  checkedImage={require('./checked.png')}
+  uncheckedImage={require('./unchecked.png')}
+/>
+
+// Custom colors and style
+<AdvancedCheckbox
+  checkedColor="#FF6347"
+  uncheckedColor="#6c757d"
+  checkBoxStyle={{ borderRadius: 10, borderWidth: 2 }}
+/>
+
+// Custom checkmark content
+<AdvancedCheckbox
+  checkMarkContent={<Text style={{ color: '#fff' }}>✔</Text>}
+/>
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+---
+
+## 📜 Code of Conduct
+
+Read our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to help maintain a welcoming community.
+
+---
+
+## 📄 License
+
+MIT © [Sujeet Kumar](https://github.com/getsettalk)  
+See [LICENSE](LICENSE) for full details.
+
+---
+
+## 🛠 Support & Feedback
+
+Found a bug or have a feature request?  
+Please open an issue on [GitHub](https://github.com/getsettalk/react-native-advanced-checkbox).
+

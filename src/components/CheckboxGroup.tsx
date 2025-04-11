@@ -1,30 +1,25 @@
-import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, ViewProps } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { CheckboxGroupProps, CheckboxProps } from '../types';
-
-// Type assertion for View
-declare module 'react-native' {
-  interface ViewComponent extends React.ComponentClass<ViewProps> {}
-}
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   onValueChange,
-  initialValues = [],
+  initialValues = [], // Only used if no onValueChange is provided
   style,
   children,
 }) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>(initialValues);
+  const selectedValues = initialValues; // Fallback if uncontrolled
 
   const handleValueChange = useCallback(
     (value: string | boolean) => {
-      if (typeof value !== 'string') return;
+      if (typeof value !== 'string' || !onValueChange) return;
 
-      const newValues = selectedValues.includes(value)
-        ? selectedValues.filter((v) => v !== value)
-        : [...selectedValues, value];
+      const currentValues = selectedValues; // Use parent's state via callback
+      const newValues = currentValues.includes(value)
+        ? currentValues.filter((v) => v !== value)
+        : [...currentValues, value];
       
-      setSelectedValues(newValues);
-      onValueChange?.(newValues);
+      onValueChange(newValues);
     },
     [selectedValues, onValueChange]
   );
