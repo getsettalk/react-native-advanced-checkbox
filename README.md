@@ -169,9 +169,9 @@ export default App;
 ## 🎨 Customization Tips
 
 ```tsx
-// Custom images
+// Custom images and you can call image url also here
 <AdvancedCheckbox
-  checkedImage={require('./checked.png')}
+  checkedImage={require('./checked.png')} 
   uncheckedImage={require('./unchecked.png')}
 />
 
