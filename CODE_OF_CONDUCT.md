@@ -51,7 +51,7 @@ For questions or clarifications, please open an issue on the [GitHub repository]
    - Push to your GitHub repo:
      ```bash
      git remote add origin https://github.com/getsettalk/react-native-advanced-checkbox.git
-     git push -u origin main
+     git push -u origin dev
      ```
 
 <!-- 3. **Publish to npm**:

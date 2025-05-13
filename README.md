@@ -194,6 +194,9 @@ export default App;
 
 We welcome contributions! Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
+> ⚠️ All development work must be submitted as a pull request to the `dev` branch.
+> Pull requests targeting `main` will be rejected or closed.
+
 ---
 
 ## 📜 Code of Conduct

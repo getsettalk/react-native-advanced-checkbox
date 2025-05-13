@@ -56,7 +56,7 @@ Thank you for your interest in contributing to `react-native-advanced-checkbox`!
   ```bash
   git push origin feature/your-feature-name
   ```
-- Open a pull request (PR) on the main repository:
+- Open a pull request (PR) on the main repository to dev branch:
   - Go to [https://github.com/getsettalk/react-native-advanced-checkbox](https://github.com/getsettalk/react-native-advanced-checkbox).
   - Click "New Pull Request" and select your branch.
   - Provide a clear title and description of your changes.
