@@ -97,7 +97,6 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   }, [isChecked, scaleAnim, fadeAnim, rotateAnim, animationType]);
 
   const handlePress = useCallback(() => {
-    console.log('Checkbox clicked, value:', value, 'isChecked:', isChecked);
     if (!disabled && onValueChange) {
       // In group context, value is a string; otherwise toggle boolean
       onValueChange(typeof value === 'string' ? value : !isChecked);
