@@ -1,6 +1,3 @@
-
-# 🎯 **react-native-advanced-checkbox**
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/67078496-e975-45b1-8682-45c1d8a2b0c4" alt="react-native-advanced-checkbox" width="500"/>
 </p>
