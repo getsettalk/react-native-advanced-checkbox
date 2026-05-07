@@ -21,7 +21,7 @@
 
 ---
 
-## 🚀 Installation
+## 📦 Installation
 
 Install the package via npm or Yarn:
 
@@ -33,33 +33,33 @@ yarn add react-native-advanced-checkbox
 
 ---
 
-## ✨ Features
+## Features
 
-- ✅ **TypeScript Support**
-- 🖼️ **Custom Images** for checked/unchecked states
-- 🎨 **Color Customization** (checked / unchecked)
-- 🏷️ **Labels** with left/right positioning
-- 🧠 **Checkbox Groups** with `CheckboxGroup`
-- 🎞️ **Animations**: `bounce`, `fade`, `rotate`
-- ♿ **Accessibility**: screen reader support
-- 🧪 **Testability**: `testID` support
-- 📱 **Cross-Platform** (iOS & Android)
-- ⚛️ **New Architecture Ready** with `useNativeDriver`
+- TypeScript Support
+- Custom Images for checked/unchecked states
+- Color Customization (checked / unchecked)
+- Labels with left/right positioning
+- Checkbox Groups with Context-like propagation
+- Animations: bounce, fade, rotate
+- Accessibility: screen reader support (Role & State)
+- Testability: testID support
+- Cross-Platform (iOS & Android)
+- New Architecture Ready with useNativeDriver
 
 ---
 
-## 📦 Compatibility
+## Compatibility
 
 | Package        | Version         |
 |----------------|-----------------|
-| **React Native** | `>= 0.72.0` (tested up to 0.79.x) |
-| **React**        | `>= 18.2.0` (tested up to 19.x)  |
+| **React Native** | >= 0.72.0 (tested up to 0.85.x) |
+| **React**        | >= 18.2.0 (tested up to 19.x)  |
 
 ---
 
-## 🧑‍💻 Usage
+## Usage
 
-### ✅ Basic Example
+### Basic Example
 
 ```tsx
 import React, { useState } from 'react';
@@ -85,7 +85,9 @@ export default App;
 
 ---
 
-### 👥 Checkbox Group Example
+### Checkbox Group Example
+
+The `CheckboxGroup` now supports controlled `value` and propagates common props like `size` and `checkedColor` to all its children.
 
 ```tsx
 import React, { useState } from 'react';
@@ -93,14 +95,19 @@ import { View } from 'react-native';
 import { CheckboxGroup, AdvancedCheckbox } from 'react-native-advanced-checkbox';
 
 const App = () => {
-  const [selectedValues, setSelectedValues] = useState<string[]>(['option1']);
+  const [selectedValues, setSelectedValues] = useState<(string | number)[]>(['option1']);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <CheckboxGroup onValueChange={setSelectedValues}>
-        <AdvancedCheckbox value="option1" label="Option 1" checkedColor="#FF6347" />
-        <AdvancedCheckbox value="option2" label="Option 2" checkedColor="#FF6347" />
-        <AdvancedCheckbox value="option3" label="Option 3" checkedColor="#FF6347" />
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <CheckboxGroup 
+        value={selectedValues} 
+        onValueChange={setSelectedValues}
+        size={28}
+        checkedColor="#FF6347"
+      >
+        <AdvancedCheckbox value="option1" label="Option 1" />
+        <AdvancedCheckbox value="option2" label="Option 2" />
+        <AdvancedCheckbox value="option3" label="Option 3" />
       </CheckboxGroup>
     </View>
   );
@@ -111,7 +118,7 @@ export default App;
 
 ---
 
-### ⚙️ Advanced Customization
+### Advanced Customization
 
 ```tsx
 <AdvancedCheckbox
@@ -133,40 +140,44 @@ export default App;
 
 ---
 
-## 📋 Props
+## Props
 
-### `AdvancedCheckbox`
+### AdvancedCheckbox
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `boolean \| string` | `false` | Current value |
-| `onValueChange` | `(value: boolean \| string) => void` | - | Callback |
+| `value` | `boolean | string | number` | `false` | Current value |
+| `onValueChange` | `(value: any) => void` | - | Callback |
 | `checkedImage` / `uncheckedImage` | `ImageSourcePropType` | - | Custom images |
 | `size` | `number` | `24` | Size of checkbox |
 | `label` | `string` | - | Label text |
-| `labelPosition` | `'left' \| 'right'` | `'right'` | Label alignment |
+| `labelPosition` | `'left' | 'right'` | `'right'` | Label alignment |
 | `labelStyle`, `containerStyle`, `checkBoxStyle` | `StyleProp` | - | Styling |
 | `checkedColor` / `uncheckedColor` | `string` | `#007AFF` / `#ccc` | Colors |
 | `disabled` | `boolean` | `false` | Disable checkbox |
-| `animationType` | `'bounce' \| 'fade' \| 'rotate'` | `'bounce'` | Animation type |
+| `animationType` | `'bounce' | 'fade' | 'rotate'` | `'bounce'` | Animation type |
 | `checkMarkContent` | `React.ReactNode` | `✓` | Custom checkmark |
 | `testID`, `accessibilityLabel`, `accessibilityHint` | `string` | - | Test & a11y support |
 
-### `CheckboxGroup`
+### CheckboxGroup
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `onValueChange` | `(values: string[]) => void` | - | Callback |
-| `initialValues` | `string[]` | `[]` | Initial selection |
+| `value` | `(string | number)[]` | `[]` | Selected values |
+| `onValueChange` | `(values: (string | number)[]) => void` | - | Callback |
+| `size` | `number` | - | Common size for children |
+| `checkedColor` | `string` | - | Common checked color |
+| `uncheckedColor` | `string` | - | Common unchecked color |
+| `disabled` | `boolean` | - | Disable all checkboxes |
 | `style` | `StyleProp<ViewStyle>` | - | Group style |
 | `children` | `React.ReactNode` | - | Checkbox items |
 
 ---
 
-## 🎨 Customization Tips
+## Customization Tips
 
 ```tsx
-// Custom images and you can call image url also here
+// Custom images
 <AdvancedCheckbox
   checkedImage={require('./checked.png')} 
   uncheckedImage={require('./unchecked.png')}
@@ -187,27 +198,26 @@ export default App;
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
-## 📜 Code of Conduct
+## Code of Conduct
 
 Read our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to help maintain a welcoming community.
 
 ---
 
-## 📄 License
+## License
 
 MIT © [Sujeet Kumar](https://github.com/getsettalk)  
 See [LICENSE](LICENSE) for full details.
 
 ---
 
-## 🛠 Support & Feedback
+## Support & Feedback
 
 Found a bug or have a feature request?  
 Please open an issue on [GitHub](https://github.com/getsettalk/react-native-advanced-checkbox).
-

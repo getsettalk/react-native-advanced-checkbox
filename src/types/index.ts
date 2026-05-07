@@ -1,11 +1,13 @@
 import React from 'react';
 import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
+export type CheckboxValue = boolean | string | number;
+
 export interface CheckboxProps {
-  /** Current value of the checkbox */
-  value?: boolean | string;
+  /** Current value of the checkbox (boolean for standalone, string/number for group) */
+  value?: CheckboxValue;
   /** Callback when value changes */
-  onValueChange?: (value: boolean | string) => void;
+  onValueChange?: (value: any) => void;
   /** Image for checked state */
   checkedImage?: ImageSourcePropType;
   /** Image for unchecked state */
@@ -38,14 +40,24 @@ export interface CheckboxProps {
   accessibilityLabel?: string;
   /** Accessibility hint */
   accessibilityHint?: string;
+  /** @internal Whether the checkbox is checked (passed by CheckboxGroup) */
+  checked?: boolean;
 }
 
 export interface CheckboxGroupProps {
   /** Callback when group values change */
-  onValueChange?: (values: string[]) => void;
-  /** Initial selected values */
-  initialValues?: string[];
+  onValueChange?: (values: (string | number)[]) => void;
+  /** Current selected values */
+  value?: (string | number)[];
   /** Custom style for group container */
   style?: StyleProp<ViewStyle>;
+  /** Common size for all checkboxes in the group */
+  size?: number;
+  /** Common checked color for all checkboxes in the group */
+  checkedColor?: string;
+  /** Common unchecked color for all checkboxes in the group */
+  uncheckedColor?: string;
+  /** Common disabled state for all checkboxes in the group */
+  disabled?: boolean;
   children: React.ReactNode;
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-native-advanced-checkbox",
-  "version": "2.0.5",
+  "version": "2.0.7",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -43,5 +43,5 @@
     "react-native-checkbox",
     "group-checkbox"
   ],
-  "description": "A customizable, animated checkbox component for React Native with group support, haptic feedback, and accessibility features, compatible with React Native 0.72.0 and above."
+  "description": "Customizable, animated checkbox component for React Native with group support, haptic feedback, and accessibility features, compatible with React Native 0.72.0 and above."
 }
