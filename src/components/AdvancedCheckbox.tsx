@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect, useMemo } from 'react';
 import {
   Image,
   Pressable,
@@ -7,25 +7,11 @@ import {
   View,
   Animated,
   ViewStyle,
-  ImageProps,
-  TextProps,
-  ViewProps,
-  PressableProps,
-  TextStyle,
-  AccessibilityProps,
 } from 'react-native';
 import { CheckboxProps } from '../types';
 
-// Type assertions for Animated components
-declare module 'react-native' {
-  interface ImageComponent extends React.ComponentClass<ImageProps> {}
-  interface TextComponent extends React.ComponentClass<TextProps> {}
-  interface ViewComponent extends React.ComponentClass<ViewProps> {}
-  interface PressableComponent extends React.ComponentClass<PressableProps> {}
-}
-
-const AnimatedView = Animated.createAnimatedComponent(View) as unknown as React.ComponentClass<ViewProps & Animated.AnimatedProps<ViewStyle>>;
-const AnimatedText = Animated.createAnimatedComponent(Text) as unknown as React.ComponentClass<TextProps & Animated.AnimatedProps<TextStyle>>;
+const AnimatedView = Animated.createAnimatedComponent(View);
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   value = false,
@@ -46,29 +32,39 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
   testID,
   accessibilityLabel,
   accessibilityHint,
+  checked: checkedProp,
 }) => {
-  const isChecked = typeof value === 'boolean' ? value : false;
+  // Determine if checked: use checkedProp (from group) or value (standalone)
+  const isChecked = useMemo(() => {
+    if (checkedProp !== undefined) return checkedProp;
+    return typeof value === 'boolean' ? value : false;
+  }, [checkedProp, value]);
+
   const scaleAnim = useRef(new Animated.Value(1)).current;
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-  const rotateAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(isChecked ? 1 : 0.7)).current;
+  const rotateAnim = useRef(new Animated.Value(isChecked ? 1 : 0)).current;
 
   useEffect(() => {
     const animations = [];
     
     if (animationType === 'bounce') {
       animations.push(
-        Animated.timing(scaleAnim, {
-          toValue: 0.85,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnim, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: true,
-        })
+        Animated.sequence([
+          Animated.timing(scaleAnim, {
+            toValue: 0.85,
+            duration: 100,
+            useNativeDriver: true,
+          }),
+          Animated.timing(scaleAnim, {
+            toValue: 1,
+            duration: 100,
+            useNativeDriver: true,
+          })
+        ])
       );
-    } else if (animationType === 'fade') {
+    }
+
+    if (animationType === 'fade') {
       animations.push(
         Animated.timing(fadeAnim, {
           toValue: isChecked ? 1 : 0.5,
@@ -76,7 +72,9 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
           useNativeDriver: true,
         })
       );
-    } else if (animationType === 'rotate') {
+    }
+
+    if (animationType === 'rotate') {
       animations.push(
         Animated.timing(rotateAnim, {
           toValue: isChecked ? 1 : 0,
@@ -86,22 +84,25 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
       );
     }
 
-    Animated.sequence([
-      ...animations,
-      Animated.timing(fadeAnim, {
-        toValue: isChecked ? 1 : 0.7,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, [isChecked, scaleAnim, fadeAnim, rotateAnim, animationType]);
+    // Always ensure fadeAnim is at least 0.7 for visible state if not specifically 'fade'
+    if (animationType !== 'fade') {
+      animations.push(
+        Animated.timing(fadeAnim, {
+          toValue: isChecked ? 1 : 0.7,
+          duration: 200,
+          useNativeDriver: true,
+        })
+      );
+    }
+
+    Animated.parallel(animations).start();
+  }, [isChecked, animationType, scaleAnim, fadeAnim, rotateAnim]);
 
   const handlePress = useCallback(() => {
     if (!disabled && onValueChange) {
-      // In group context, value is a string; otherwise toggle boolean
-      onValueChange(typeof value === 'string' ? value : !isChecked);
+      onValueChange(value);
     }
-  }, [disabled, isChecked, onValueChange, value]);
+  }, [disabled, onValueChange, value]);
 
   const renderCheckbox = () => {
     if (checkedImage && isChecked) {
@@ -113,50 +114,75 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
 
     const rotateInterpolate = rotateAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '90deg'],
+      outputRange: ['0deg', '45deg'],
     });
+
+    const inverseRotateInterpolate = rotateAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '-45deg'],
+    });
+
+    const animatedStyle: any = {
+      width: size,
+      height: size,
+      borderColor: isChecked ? checkedColor : uncheckedColor,
+      backgroundColor: isChecked ? checkedColor : 'transparent',
+      transform: [
+        { scale: animationType === 'bounce' ? scaleAnim : 1 },
+        { rotate: animationType === 'rotate' ? rotateInterpolate : '0deg' },
+      ],
+      opacity: fadeAnim,
+    };
 
     return (
       <AnimatedView
         style={[
           styles.checkbox,
-          checkBoxStyle as ViewStyle,
-          {
-            width: size,
-            height: size,
-            borderColor: isChecked ? checkedColor : uncheckedColor,
-            backgroundColor: isChecked ? checkedColor : 'transparent',
-            transform: [
-              { scale: animationType === 'bounce' ? scaleAnim : 1 },
-              { rotate: animationType === 'rotate' ? rotateInterpolate : '0deg' },
-            ],
-            opacity: fadeAnim,
-          },
+          checkBoxStyle,
+          animatedStyle,
         ]}
         testID={testID ? `${testID}-checkbox` : undefined}
       >
         {isChecked && (
-          checkMarkContent ? (
-            <Animated.View style={{ opacity: fadeAnim }}>
-              {checkMarkContent}
-            </Animated.View>
-          ) : (
-            <AnimatedText
-              style={[
-                styles.checkMark,
-                { fontSize: size * 0.6, opacity: fadeAnim },
-              ]}
-            >
-              ✓
-            </AnimatedText>
-          )
+          <Animated.View 
+            style={{ 
+              opacity: fadeAnim,
+              transform: [{ rotate: animationType === 'rotate' ? inverseRotateInterpolate : '0deg' }]
+            }}
+          >
+            {checkMarkContent ? (
+              checkMarkContent
+            ) : (
+              <AnimatedText
+                style={[
+                  styles.checkMark,
+                  { fontSize: size * 0.6 },
+                ]}
+              >
+                ✓
+              </AnimatedText>
+            )}
+          </Animated.View>
         )}
       </AnimatedView>
     );
   };
 
-  const content = (
-    <>
+  return (
+    <Pressable
+      onPress={handlePress}
+      disabled={disabled}
+      style={[
+        styles.container,
+        containerStyle,
+        { opacity: disabled ? 0.5 : 1 },
+      ]}
+      accessibilityLabel={accessibilityLabel || label}
+      accessibilityHint={accessibilityHint || `Toggles checkbox to ${isChecked ? 'off' : 'on'}`}
+      accessibilityRole="checkbox"
+      accessibilityState={{ checked: isChecked, disabled }}
+      testID={testID}
+    >
       {labelPosition === 'left' && label && (
         <Text style={[styles.label, labelStyle]} testID={testID ? `${testID}-label-left` : undefined}>
           {label}
@@ -168,23 +194,6 @@ const AdvancedCheckbox: React.FC<CheckboxProps> = ({
           {label}
         </Text>
       )}
-    </>
-  );
-
-  return (
-    <Pressable
-      onPress={handlePress}
-      disabled={disabled}
-      style={[
-        styles.container,
-        containerStyle as ViewStyle,
-        { opacity: disabled ? 0.5 : 1 },
-      ]}
-      accessibilityLabel={accessibilityLabel}
-      accessibilityHint={accessibilityHint || `Toggles checkbox to ${isChecked ? 'off' : 'on'}`}
-      testID={testID}
-    >
-      {content}
     </Pressable>
   );
 };
