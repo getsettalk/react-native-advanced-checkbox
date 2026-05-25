@@ -1,38 +1,48 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, ViewStyle, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { CheckboxGroupProps, CheckboxProps } from '../types';
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   onValueChange,
-  initialValues = [], // Controlled by parent
+  value = [],
   style,
+  size,
+  checkedColor,
+  uncheckedColor,
+  disabled,
   children,
 }) => {
   const handleValueChange = useCallback(
-    (value: string | boolean) => {
-      if (typeof value !== 'string' || !onValueChange) return;
+    (selectedValue: any) => {
+      if (!onValueChange) return;
 
-      console.log('Group handleValueChange, value:', value, 'currentValues:', initialValues);
-      const newValues = initialValues.includes(value)
-        ? initialValues.filter((v) => v !== value)
-        : [...initialValues, value];
+      const isAlreadySelected = value.includes(selectedValue);
+      const newValues = isAlreadySelected
+        ? value.filter((v) => v !== selectedValue)
+        : [...value, selectedValue];
       
-      console.log('New values:', newValues);
-      onValueChange(newValues); // Pass the computed array directly
+      onValueChange(newValues);
     },
-    [onValueChange, initialValues]
+    [onValueChange, value]
   );
 
   return (
     <View style={[styles.container, style]}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement<CheckboxProps>(child)) {
-          const childValue = String(child.props.value);
-          return React.cloneElement<CheckboxProps>(child, {
-            value: childValue, // Pass the string value
-            onValueChange: handleValueChange,
-            checkMarkContent: initialValues.includes(childValue) ? <Text>✓</Text> : null, // Reflect checked state
-          });
+          const childValue = child.props.value;
+          // Only wrap if child has a value (string or number)
+          if (childValue !== undefined && typeof childValue !== 'boolean') {
+            return React.cloneElement(child, {
+              checked: value.includes(childValue),
+              onValueChange: handleValueChange,
+              // Propagate common props if not overridden by child
+              size: child.props.size ?? size,
+              checkedColor: child.props.checkedColor ?? checkedColor,
+              uncheckedColor: child.props.uncheckedColor ?? uncheckedColor,
+              disabled: child.props.disabled ?? disabled,
+            } as CheckboxProps);
+          }
         }
         return child;
       })}
